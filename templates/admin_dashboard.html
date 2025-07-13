@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Admin Dashboard</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         body { 
+            background: #0f2027; 
+            color: #fff; 
+            font-family: 'Poppins', sans-serif; 
+            padding: 30px; 
+         }
+         .domain-section { 
+            margin-bottom: 30px; 
+         }
+         .project-card {
+            background: #112240;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+         }
+         button {
+            padding: 15px 30px 15px 30px;                 
+            background: #64ffda;               
+            border: none; 
+            cursor: pointer; 
+            border-radius: 20px; 
+            font-family:Georgia, 'Times New Roman', Times, serif; 
+            font-weight: 700; 
+            font-size: 16px;
+         }
+         form input, form textarea {
+            display: block;
+            margin: 12px 0;
+            padding: 10px;
+            width: 97%;
+            border-radius: 10px;
+         }
+         form select, button {
+            padding: 10px;
+         }
+         a.btn {
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 6px;
+         }
+         .logout {
+            float: right;
+            color: rgb(6, 26, 43);
+            cursor: pointer;
+            background: #64ffda; 
+            border-radius: 10px;
+            padding: 5px;
+            text-decoration: none;
+            font-family:Georgia, 'Times New Roman', Times, serif; 
+            font-weight: 700; 
+         }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: #112240;
+            border-radius: 10px;
+            overflow: hidden;
+         }
+         th, td {
+            padding: 10px;
+            border-bottom: 1px solid #1c3b57;
+            text-align: left;
+         }
+         th {
+            background-color: #1c3b57;
+         }
+         tr:hover {
+            background-color: #1e3c5e;
+         }
+      </style>
+   </head>
+
+   <body>
+      
+      <h1>Admin Dashboard</h1>
+      <div class="logout">
+         <a href="{{ url_for('admin_logout') }}" class="logout">Logout</a>
+      </div>
+
+      <!-- ADD PROJECT SECTION -->
+      <h2>Add New Project</h2>
+      <form method="POST" action="{{ url_for('add_project') }}">
+         <input type="text" name="domain" placeholder="Domain (e.g., Web Development)" required>
+         <input type="text" name="id" placeholder="Unique Project ID" required>
+         <input type="text" name="title" placeholder="Project Title" required>
+         <textarea name="description" placeholder="Project Summary" required></textarea>
+         <input type="text" name="tech_stack" placeholder="Tech Stack (comma separated)" required>
+         <button type="submit">Add Project</button>
+      </form>
+
+      <hr><br>
+      <h2>Projects List :</h2>
+
+      <!-- EXISTING PROJECTS -->
+      {% for domain, projects in data.items() %}
+         <div class="domain-section">
+            <h3>{{ domain }}</h3>
+            {% for project in projects %}
+            <div class="project-card">
+               <strong>{{ project.title }}</strong> ({{ project.id }})<br>
+               <small>{{ project.tech_stack }}</small><br>
+               <br>
+               <a class="btn" href="{{ url_for('delete_project', domain=domain, project_id=project.id) }}">Delete</a>
+            </div>
+            {% endfor %}
+         </div>
+      {% endfor %}
+
+      <hr><br>
+
+      <!-- Project SUBMISSIONS -->
+      <h2>Project Bookings :</h2>
+      {% if submissions %}
+         <table>
+            <thead>
+            <tr>
+               <th>Name</th>
+               <th>Mobile</th>
+               <th>Type</th>
+               <th>Project</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in submissions %}
+            <tr>
+               <td>{{ s['name'] }}</td>
+               <td>{{ s['mobile'] }}</td>
+               <td>{{ s['type'].replace('_', ' ').title() }}</td>
+               <td>{{ s['project'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+
+      {% else %}
+         <p>No submissions found.</p>
+      {% endif %}
+      
+   </body>
+</html>

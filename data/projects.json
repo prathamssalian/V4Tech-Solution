@@ -1,0 +1,32 @@
+{
+  "Web Development": [
+    {
+      "id": "403",
+      "title": "1",
+      "description": "he",
+      "tech_stack": "1"
+    }
+  ],
+  "Introduction to Data Science": [
+    {
+      "id": "201",
+      "title": "Bank Fraud Detection",
+      "description": "1",
+      "tech_stack": "Python, Pandas, Scikit-learn"
+    }
+  ],
+  "Database Management System": [
+    {
+      "id": "301",
+      "title": "1",
+      "description": "1",
+      "tech_stack": "1"
+    },
+    {
+      "id": "1045",
+      "title": "45",
+      "description": "hw",
+      "tech_stack": "34"
+    }
+  ]
+}

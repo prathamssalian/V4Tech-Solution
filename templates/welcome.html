@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Welcome</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/png" href="/static/images/logo.png">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+         }
+
+         body {
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(135deg, #86a5fa, #e6f7ff);
+            overflow-x: hidden;
+            padding: 20px;
+         }
+
+         .content {
+            z-index: 2;
+            padding: 40px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(135deg, #f0f4ff, #e6f7ff);
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 95%;
+         }
+
+         .p1 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+         }
+
+         a button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            background-color: #2575fc;
+            color: white;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px);
+         }
+
+         a button:hover {
+            background-color: #1e5fe0;
+            box-shadow: 0 10px 25px rgba(37, 117, 252, 0.5);
+            transform: scale(1.05);
+         }
+
+         section#projects {
+            margin-top: 60px;
+         }
+
+         h1 {
+            color: #2575fc;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s ease-in-out;
+            font-size: 30px;
+         }
+
+         .projects-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+         }
+
+         .project {
+            padding: 20px;
+            border-radius: 15px;
+            width: 320px;
+            transition: transform 0.3s;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+         }
+
+         .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 35px rgba(6, 6, 6, 0.1);
+         }
+
+         .project h3 {
+            margin-bottom: 10px;
+         }
+
+         .project p {
+            font-size: 0.95rem;
+         }
+
+         .project i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+         }
+
+         .project:nth-child(1) {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #400000;
+         }
+
+         .project:nth-child(1) i {
+            color: #d90429;
+         }
+
+         .project:nth-child(2) {
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #4d2f00;
+         }
+
+         .project:nth-child(2) i {
+            color: #ff6600;
+         }
+
+         .project:nth-child(3) {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            color: #003366;
+         }
+
+         .project:nth-child(3) i {
+            color: #0077b6;
+         }
+
+         @keyframes fadeIn {
+            from {
+            opacity: 0;
+            transform: translateY(-30px);
+            }
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+         }
+
+         .floating {
+            animation: floatUpDown 4s ease-in-out infinite;
+         }
+
+         @keyframes floatUpDown {
+            0%, 100% {
+            transform: translateY(0px);
+            }
+            50% {
+            transform: translateY(-10px);
+            }
+         }
+
+         .content1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            overflow: hidden;
+         }
+
+         .cyber {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.3rem;
+            color: #2575fc;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 4s steps(30, end) forwards, blink 0.5s step-end infinite;
+            border-right: 3px solid #2575fc;
+            max-width: 100%;
+         }
+
+         @keyframes typing {
+            from {
+            width: 0;
+            }
+            to {
+            width: 20ch;
+            }
+         }
+
+         @keyframes blink {
+            50% {
+            border-color: transparent;
+            }
+         }
+
+         .underline {
+            width: 90%;
+            max-width: 600px;
+            height: 4px;
+            margin: 0 auto;
+            border-radius: 4px;
+            background: linear-gradient(to right, #7b2ff7, #00c6ff);
+         }
+
+         @media screen and (max-width: 600px) {
+            h1 {
+            font-size: 1.6rem;
+            }
+
+            .p1 {
+            font-size: 1rem;
+            }
+
+            .cyber {
+            font-size: 1.6rem;
+            width: 100%;
+            }
+
+            .project {
+            width: 90%;
+            }
+
+            .underline {
+            width: 90%;
+            }
+         }
+      </style>
+   </head>
+
+   <body>
+      <div class="content">
+         <div class="content1">
+            <h1 class="cyber">Welcome to V4Tech...</h1>
+         </div>
+         <p class="p1">Explore top-level projects across multiple domains</p>
+         <a href="{{ url_for('index') }}">
+            <button>Get Started</button>
+         </a>
+
+         <br><br>
+
+         <div class="underline"></div>
+
+         <section id="projects">
+            <h1>Why Choose Our Interface?</h1>
+            <div class="projects-container floating">
+               <div class="project">
+                  <i class="fas fa-code"></i>
+                  <h3>Domain Categorization</h3>
+                  <p>Projects are grouped by domains like Web Dev, AI, Data Science, and many more.</p>
+               </div>
+
+               <div class="project">
+                  <i class="fas fa-brain"></i>
+                  <h3>Real-World Projects</h3>
+                  <p>Each project comes with a solution for the Real-World problems.</p>
+               </div>
+
+               <div class="project">
+                  <i class="fas fa-user-graduate"></i>
+                  <h3>Resume Boost</h3>
+                  <p>Pick real-world academic projects that help you land top jobs.</p>
+               </div>
+            </div>
+         </section>
+      </div>
+
+   </body>
+</html>

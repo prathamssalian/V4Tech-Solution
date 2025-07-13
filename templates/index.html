@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Project Bank - Domains</title>
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+      
+      <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+         }
+         body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+         }
+         .header {
+            text-align: center;
+            padding: 20px 10px;
+            border-radius: 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+         }
+         .header h1 {
+            font-size: 2.5rem;
+            color: #2575fc;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 6px rgba(37, 117, 252, 0.4);
+         }
+         .header p {
+            font-size: 1.2rem;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 500;
+            line-height: 1.6;
+         }
+         .header {
+            animation: fadeUp 1s ease-in-out;
+         }
+         @keyframes fadeUp {
+            from {
+               opacity: 0;
+               transform: translateY(20px);
+            }
+            to {
+               opacity: 1;
+               transform: translateY(0);
+            }
+         }
+
+         .desktop-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: #eaf4ff;
+            border-bottom: 2px solid #a2c9ff;
+            border-radius: 0 0 30px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+         }
+         .desktop-nav.shrink {
+            padding: 8px 24px;
+            border-radius: 0 0 15px 15px;
+         }
+         .desktop-nav.shrink .navbar-left img {
+            height: 40px;
+            width: 40px;
+         }
+         .desktop-nav.shrink .navbar-left span {
+            font-size: 20px;
+         }
+         .desktop-nav {
+            transition: all 0.3s ease;
+         }
+         .navbar-left img {
+            transition: all 0.3s ease-in-out;
+         }
+         .navbar-left span {
+            transition: font-size 0.3s ease;
+         }
+         .navbar-left {
+            display: flex;
+            align-items: center;
+         }
+         .navbar-left img {
+            height: 60px;
+            width: 60px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-right: 12px;
+         }
+         .navbar-left span {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0d272d;
+         }
+         .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+         }
+         .nav-links a {
+            position: relative;
+            color: #104b75;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+         }
+         .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 2px;
+            background-color: #00d2ff;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+         }
+         .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+         }
+         .nav-links a:hover {
+            color: #00d2ff;
+         }
+         .login-btn {
+            margin-left: 40px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            background-color: #00ccff;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+         }
+         .login-btn:hover {
+            background: #009fcc;
+            transform: scale(1.05);
+         }
+
+         .domain-container {
+            max-width: 1100px;
+            margin: 50px auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+         }
+         .domain-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+         }
+         .domain-card:hover {
+            transform: translateY(-5px);
+         }
+         .domain-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            transition: transform 0.4s ease;
+         }
+         .domain-card:hover .domain-icon {
+            transform: scale(1.3) rotate(5deg);
+         }
+         .domain-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+         }
+         .domain-link {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+         }
+         .domain-link:hover {
+            text-decoration: underline;
+         }
+         .red { background: #ff6b6b; color: white; }
+         .yellow { background: #feca57; color: #333; }
+         .blue { background: #54a0ff; color: white; }
+         .orange { background: #ff9f43; color: white; }
+         .green { background: #1dd1a1; color: white; }
+         .purple { background: #5f27cd; color: white; }
+
+         .red a, .blue a, .orange a, .green a, .purple a {
+            color: white;
+         }
+
+         .search-container {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 0 20px;
+         }
+         .search-bar {
+            display: flex;
+            align-items: center;
+            background: #eaf4ff;
+            border: 2px solid #a2c9ff;
+            border-radius: 50px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+            padding: 8px 15px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+         }
+         .search-bar input[type="text"] {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 8px;
+            color: #333;
+         }
+         .search-icon {
+            color: #888;
+            margin-right: 10px;
+            font-size: 1.1rem;
+         }
+         .clear-btn {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s;
+         }
+         .clear-btn:hover {
+            color: #2575fc;
+         }
+         .search-bar:focus-within {
+            box-shadow: 0 0 10px #00ccff;
+            transform: scale(1.01);
+         }
+
+         .team-section {
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+         }
+         .team-section h1 {
+            font-size: 2rem;
+            color: #2575fc;
+            margin-bottom: 10px;
+         }
+         .team-underline {
+            width: 90%;
+            max-width: 600px;
+            height: 4px;
+            margin: 0 auto 40px auto;
+            border-radius: 4px;
+            background: linear-gradient(to right, #7b2ff7, #00c6ff);
+         }
+         .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+         }
+         .team-card {
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border: 2px solid #a2c9ff;
+            width: 280px;
+            transition: transform 0.3s ease;
+            text-align: center;
+         }
+         .team-card:hover {
+            transform: translateY(-8px);
+         }
+         .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #a2c9ff;
+         }
+         .team-card h2 {
+            font-size: 1.2rem;
+            color: #005bb5;
+            margin-bottom: 8px;
+         }
+         .team-card p {
+            font-size: 0.95rem;
+            color: #555;
+         }
+         .team-social {
+            margin-top: 15px;
+         }
+         .team-social a {
+            margin: 0 10px;
+            font-size: 1.2rem;
+            color: #555;
+            transition: color 0.3s;
+         }
+         .team-social a:hover {
+            color: #007bff;
+         }
+
+         .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            position: fixed;
+            z-index: 999;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px;
+         }
+         .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+         }
+         @keyframes fadein {
+            from {top: 0px; opacity: 0;}
+            to {top: 50px; opacity: 1;}
+         }
+         @keyframes fadeout {
+            from {top: 50px; opacity: 1;}
+            to {top: 0px; opacity: 0;}
+         }
+         .extra {
+            text-align: center;
+         }
+
+         .final-footer {
+            background: #eaf4ff;
+            padding: 15px 15px;
+            font-family: 'Segoe UI', sans-serif;
+            border-top: 2px solid #a2c9ff;
+            font-size: 0.95rem;
+            border-radius: 30px 30px 0 0;
+         }
+         .footer-bar {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            }
+         .footer-left {
+            color: #666;
+         }
+         .footer-right-group {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+         }
+         .footer-links a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: color 0.3s;
+         }  
+         .footer-links a:hover {
+            color: #007bff;
+         }
+         .footer-links span {
+            color: #999;
+            margin: 0 5px;
+         }
+         .footer-social a {
+            margin-left: 10px;
+            font-size: 1.2rem;
+            color: #555;
+            transition: color 0.3s;
+         }
+         .footer-social a:hover {
+            color: #007bff;
+         }
+
+         @media (max-width: 768px) {
+            .footer-bar {
+               flex-direction: column;
+               text-align: center;
+               gap: 10px;
+            }
+            .footer-right-group {
+               flex-direction: column;
+               gap: 10px;
+            }
+         }
+
+         .accordion-button {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            text-align: left;
+            padding: 20px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #005bb5;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+         }
+         .accordion-button:hover {
+            background-color: #e6f0ff;
+         }
+         .accordion-button i {
+            font-size: 1rem;
+            min-width: 20px;
+            transition: transform 0.3s ease;
+         }
+         .accordion-item.active i {
+            transform: rotate(180deg);
+         }
+         .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            background-color: #fff;
+            font-size: 1rem;
+            text-align: left;
+            color: #444;
+         }
+         .accordion-item.active .accordion-content {
+            padding: 15px 20px;
+            max-height: 300px;
+         }
+
+         .contact-section {
+            background: #eaf4ff;
+            border-radius: 20px;
+            padding: 30px 10px;
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #a2c9ff;
+         }
+         .contact-section h2 {
+            font-size: 1.8rem;
+            color: #005bb5;
+            margin-bottom: 30px;
+         }
+         .contact-form {
+            max-width: 350px;
+            margin: auto;
+            text-align: left;
+         }
+         .contact-form label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+         }
+         .contact-form input,
+         .contact-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            background-color: #ffffff;
+            transition: border 0.3s, box-shadow 0.3s;
+         }
+         .contact-form input:focus,
+         .contact-form textarea:focus {
+            border-color: #00ccff;
+            box-shadow: 0 0 5px #00ccff;
+            outline: none;
+         }
+         .contact-form button {
+            background-color: #00ccff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+         }
+         .contact-form button:hover {
+            background-color: #009fcc;
+         }
+         .extra-section {
+            background: #eaf4ff;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 40px auto;
+            border: 2px solid #a2c9ff;
+         }
+         .extra-section h1 {
+            font-size: 2rem;
+            color: #2575fc;
+            margin-bottom: 10px;
+         }
+         .extra-section h2 {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+         }
+
+         .cta-button {
+            display: inline-block;
+            background-color: #00ccff;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+         }
+         .cta-button:hover {
+            background-color: #009fcc;
+         } 
+         html {
+            scroll-behavior: smooth;
+         }
+         .back-to-top {
+            position: fixed;
+            bottom: 110px;
+            right: 10px;
+            background: #00ccff;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            border-radius: 50%;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.3s;
+            display: none;
+         }
+         .back-to-top:hover {
+            background: #009fcc;
+            transform: translateY(-4px);
+         }
+
+         .help-btn {
+            position: fixed;
+            bottom: 60px; 
+            right: 10px;
+            background-color: #00ccff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            width: 44px;
+            height: 44px;
+            z-index: 1001;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+         }
+         .help-btn:hover {
+            background: #009fcc;
+            transform: translateY(-4px);
+         }
+         .help-modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.4);
+         }
+         .help-modal-content {
+            background: #f0f8ff;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 2px solid #a2c9ff;
+         }
+         .help-modal-content h2 {
+            margin-bottom: 15px;
+            color: #2575fc;
+         }
+         .help-modal-content ul {
+            padding-left: 20px;
+            list-style: none;
+         }
+         .help-modal-content ul li {
+            margin: 8px 0;
+            font-size: 0.95rem;
+         }
+            .help-modal-content .close {
+            color: #999;
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+         }
+         .help-modal-content .close:hover {
+            color: #333;
+         }
+
+         #bombContainer {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            pointer-events: none;
+         }
+         #bomb {
+            font-size: 2.5rem;
+            position: absolute;
+            top: 0;
+            animation: none;
+            opacity: 0;
+         }
+         #blast {
+            display: none;
+            position: absolute;
+            top: 60vh;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: radial-gradient(circle, #ff4d4d, #ff1a1a);
+            padding: 20px 24px;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+            animation: explode 0.4s ease-in-out;
+            min-width: 450px;
+         }
+         .blast-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+         }
+         .blast-sub {
+            display: block;
+            font-size: 1.1rem;
+            color: #fff8d1;
+            margin-top: 5px;
+         }
+         @keyframes dropBomb {
+            0% {
+               top: -50px;
+               opacity: 0;
+            }
+            10% {
+               opacity: 1;
+            }
+            90% {
+               top: 80vh;
+               transform: scale(1.1);
+            }
+            100% {
+               top: 80vh;
+               transform: scale(1);
+               opacity: 0;
+            }
+         }
+
+         @keyframes explode {
+            0% {
+               transform: scale(0.6) translateX(-50%);
+               opacity: 0;
+            }
+            60% {
+               transform: scale(1.1) translateX(-50%);
+               opacity: 1;
+            }
+            100% {
+               transform: scale(1) translateX(-50%);
+               opacity: 1;
+            }
+         }
+
+         .sidebar {
+            display: none;
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1500;
+            top: 0;
+            left: 0;
+            background-color: #eaf4ff;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+         }
+         .sidebar a {
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #003366;
+            display: block;
+            transition: 0.3s;
+         }
+         .sidebar a:hover {
+            background-color: #d4eaff;
+         }
+         .sidebar .closebtn {
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            color: red;
+            font-size: 36px;
+         }
+         .mobile-nav {
+            left: 0;
+            position: fixed;
+            z-index: 1200;
+            width: 100%;
+            top: 0;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: #eaf4ff;
+            border-bottom: 2px solid #a2c9ff;
+            border-radius: 0 0 20px 20px;
+            box-sizing: 0 4px 12px rgba(0,0,0,0.08);
+            transition: padding 0.3s ease;
+         }
+         .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0d272d;
+            transition: all 0.3s ease;
+         }
+         .navbar-brand img {
+            height: 48px;
+            width: 48px;
+            border-radius: 16px;
+            object-fit: cover;
+            transition: all 0.3s ease-in-out;
+         }
+         .shrink .navbar-brand img {
+            height: 34px;
+            width: 34px;
+         }
+         .shrink .mobile-nav {
+            padding: 6px 12px;
+         }
+         #menuToggle {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+         }
+
+         @media (max-width: 768px) {
+            .desktop-nav {
+               display: none !important;
+            }
+
+            .mobile-nav {
+               display: flex !important;
+            }
+
+            .sidebar {
+               display: block;
+            }
+         }
+
+         @media (max-width: 768px) {
+            .mobile-nav-spacer {
+               height: 80px;
+            }
+         }
+
+         #loader-wrapper {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: #eaf4ff;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         z-index: 99999;
+         }
+         .loader-content {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         }
+         .logo-spinner {
+         position: relative;
+         width: 100px;
+         height: 100px;
+         }
+         .spinner {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100px;
+         height: 100px;
+         border: 6px solid transparent;
+         border-top: 6px solid #00c6ff;
+         border-radius: 50%;
+         animation: spin 1s linear infinite;
+         box-shadow: 0 0 12px #00c6ff, 0 0 24px #00c6ff;
+         z-index: 1;
+         }
+         .loader-logo {
+         width: 90px;
+         height: 90px;
+         object-fit: contain;
+         border-radius: 50%;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         z-index: 2;
+         }
+         .loading-text {
+         margin-top: 20px;
+         font-size: 1.2rem;
+         font-weight: 600;
+         color: #104b75;
+         }
+         @keyframes spin {
+         0%   { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+         }
+
+         .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+         }
+         .popup-box {
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 850px;
+            width: 95%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            font-family: 'Poppins', sans-serif;
+         }
+         .popup-box h2 {
+            color: #2575fc;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+         }  
+         .popup-box h3 {
+            color: #222;
+            font-size: 1.2rem;
+            margin-top: 20px;
+         }
+         .popup-box p,
+         .popup-box ul {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.7;
+            margin-top: 10px;
+            text-align: justify;
+         }
+         .popup-box ul {
+            padding-left: 20px;
+         }
+         .popup-box li {
+            margin-bottom: 10px;
+         }
+         .popup-box .underline {
+            width: 90%;
+            max-width: 600px;
+            height: 4px;
+            background: linear-gradient(to right, #7b2ff7, #00c6ff);
+            margin: 10px auto 20px auto;
+            border-radius: 4px;
+         }
+         .popup-box .close-btn {
+            margin-top: 30px;
+            text-align: center;
+         }
+         .popup-box .close-btn button {
+            padding: 10px 24px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+         }
+         .popup-box .close-btn button:hover {
+            background: #1e5fe0;
+            transform: scale(1.05);
+         }
+
+         @media (max-width: 600px) {
+            .popup-box {
+               padding: 20px;
+            }
+            .popup-box h2 {
+               font-size: 1.6rem;
+            }
+            .popup-box h3 {
+               font-size: 1rem;
+            }
+            .popup-box p,
+            .popup-box li {
+               font-size: 0.95rem;
+            }
+         }
+
+      </style>
+   </head>
+   <body>
+
+      <div class="desktop-nav">
+         <div class="navbar-left">
+            <img src="/static/images/logo.png" alt="Logo">
+            <span>Ready2Build</span>
+         </div>
+
+         <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#home">Projects</a>
+            <a href="#team">Team</a>
+            <a href="#contact">Contact</a>
+            <a href="#faq">FAQ</a>
+            <button class="login-btn" onclick="location.href='/admin'">Login</button>
+         </div>
+      </div>
+
+      <div class="mobile-nav">
+         <div class="navbar-brand">
+            <img src="/static/images/logo.png" alt="Logo">
+            Ready2Build
+         </div>
+         <button id="menuToggle" onclick="openSidebar()">☰</button>
+      </div>
+
+      <div class="mobile-nav-spacer"></div>
+
+      <div id="sidebar" class="sidebar">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+         <a href="/">Home</a>
+         <a href="#home">Projects</a>
+         <a href="#team">Team</a>
+         <a href="#contact">Contact</a>
+         <a href="#faq">FAQ</a>
+         <button class="login-btn" style="margin: 20px" onclick="location.href='/admin'">Login</button>
+      </div>
+
+      <!-- HEADER SECTION -->
+      <div class="header">
+         <h1>Explore Project Domains</h1>
+         <p>Pick a domain to discover exciting projects and ideas</p>
+         <div class="search-container">
+            <div class="search-bar">
+               <input type="text" id="searchInput" placeholder="Search Domains..." onkeyup="filterDomains()">
+               <button class="clear-btn" onclick="clearSearch()">×</button>
+            </div>
+         </div>
+      </div>
+
+      <div id="home">
+         <div class="domain-container" id="domainGrid">
+            {% set icons = {
+            'Web Development': 'fas fa-code',
+            'AI/ML': 'fa-brain',
+            'Cybersecurity': 'fa-shield-halved',
+            'IoT': 'fa-microchip',
+            'Software Engineering': 'fa-laptop-code',
+            'Introduction to Data Science': 'fa-chart-bar',
+            'Database Management System': 'fa-database'
+            } %}
+            {% set colors = ['red', 'yellow', 'blue', 'orange', 'green', 'purple'] %}
+            {% for domain in domains %}
+            <div class="domain-card {{ colors[loop.index0 % colors|length] }}">
+               <i class="fas {{ icons.get(domain, 'fa-folder') }} domain-icon"></i>
+               <div class="domain-title">
+                  {{ domain }}
+               </div>
+               <a class="domain-link" href="{{ url_for('domain', domain_name=domain) }}">View Projects →</a>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+      <br>
+      
+      <div class="extra-section">
+         <h1>Need Projects of Your Choice?</h1>
+         <h2>Feel free to contact us</h2>
+         <a href="#contact" class="cta-button">Contact</a>
+      </div>
+      <br>
+
+      <div id="team" class="team-section">
+         <h1>Our Development Team</h1>
+         <div class="team-underline"></div>
+
+         <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-card">
+               <img src="/static/images/pratham.jpg" alt="Pratham" class="profile-img">
+               <h2>Pratham S Salian</h2>
+               <p>Email: prathamssalian@gmail.com</p>
+               <div class="team-social">
+                  <a href="https://www.linkedin.com/in/pratham-s-salian-33534328b/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="https://github.com/prathamssalian" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.instagram.com/pratham_.s._salian/" target="_blank"><i class="fab fa-instagram"></i></a>
+               </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-card">
+               <img src="/static/images/pratham.jpg" alt="Megha" class="profile-img">
+               <h2>Megha V Bhat</h2>
+               <p>Email: meghavbhat24@gmail.com</p>
+               <div class="team-social">
+                  <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="https://github.com/Megha-V-Bhat" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.instagram.com/__.megha_01.__/" target="_blank"><i class="fab fa-instagram"></i></a>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!CONTACT>
+      <div id="contact" class="contact-section">
+         <h2>Contact Us</h2>
+         <form id="contactForm" method="POST" action="/contact" class="contact-form">
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required rows="4"></textarea>
+
+            <button type="submit">Send</button>
+         </form>
+      </div>
+
+      <div id="faq" class="section" style="padding: 40px; text-align: center;">
+         <h1 style="color: #2575fc; font-size: 2rem;">Frequently Asked Questions</h1>
+         <div class="underline" style="width: 90%; max-width: 600px; height: 4px; margin: 0 auto 30px auto; border-radius: 4px; background: linear-gradient(to right, #7b2ff7, #00c6ff);"></div>
+
+         <div class="faq-container" style="max-width: 900px; margin: auto; background: linear-gradient(135deg, #ffffff, #f0f4ff); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);">
+            <div class="accordion-item">
+               <button class="accordion-button">
+                  1. What is Project Bank?
+                  <i class="fas fa-plus"></i>
+               </button>
+               <div class="accordion-content">
+                  <p>Project Bank is a platform where students can explore, request, and purchase academic projects in various domains like Web Development, AI/ML, Cybersecurity, and more.</p>
+               </div>
+            </div>
+
+            <div class="accordion-item">
+               <button class="accordion-button">
+                  2. Can I request a custom project?
+                  <i class="fas fa-plus"></i>
+               </button>
+               <div class="accordion-content">
+                  <p>Yes! You can submit your requirements through our form. Our team will develop a project tailored to your needs.</p>
+               </div>
+            </div>
+
+            <div class="accordion-item">
+               <button class="accordion-button">
+                  3. Will I receive source code and documentation?
+                  <i class="fas fa-plus"></i>
+               </button>
+               <div class="accordion-content">
+                  <p>Absolutely. Every project comes with complete source code, database setup, and step-by-step documentation.</p>
+               </div>
+            </div>
+
+            <div class="accordion-item">
+               <button class="accordion-button">
+                  4. Can I use these projects for my resume or placement?
+                  <i class="fas fa-plus"></i>
+               </button>
+               <div class="accordion-content">
+                  <p>Yes. All projects are designed to enhance your resume and help in job interviews or final-year academic submissions.</p>
+               </div>
+            </div>
+
+            <div class="accordion-item">
+               <button class="accordion-button">
+                  5. How is my data secured?
+                  <i class="fas fa-plus"></i>
+               </button>
+               <div class="accordion-content">
+                  <p>We follow standard encryption and privacy policies to secure your data. Read our <a href="/privacy" >Privacy Policy</a> for more.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!TOAST MESSAGE>
+      <div id="toast" class="toast">We will reach out to you soon!</div>
+
+      <footer class="final-footer">
+         <div class="footer-bar">
+
+            <div class="footer-left">
+               <p>&copy; 2025 V4Tech Technologies. All rights reserved.</p>
+            </div>
+
+            <div class="footer-right-group">
+               <div class="footer-links">
+                  <a href="#" onclick="openTermsPopup()">Terms and Conditions</a>
+                  <span>|</span>
+                  <a href="#" onclick="openPrivacyPopup()">Privacy</a>
+               </div>
+               <div class="footer-social">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-github"></i></a>
+               </div>
+            </div>
+         </div>
+      </footer>
+
+      <!-- TERMS POPUP -->
+      <div id="termsPopup" class="popup-overlay">
+         <div class="popup-box">
+            <h2>Terms & Conditions</h2>
+            <div class="underline"></div>
+            <p>By accessing or using our website (<strong>V4Tech</strong>), you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, please do not use the website.</p>
+
+            <h3>1. Acceptance of Terms</h3>
+            <p>
+               By accessing and using this platform, you accept and agree to be bound by the terms and provision of this agreement. 
+               If you do not agree to abide by the above, please do not use this service.
+            </p>
+
+            <h3>2. Educational Purpose</h3>
+            <p>
+               All projects shared on this site are intended for educational and informational use only. They are provided to help students learn programming, design, and development concepts.
+            </p>
+
+            <h3>3. Intellectual Property</h3>
+            <p>
+               All content, unless otherwise stated, is owned by Project Bank or its contributors. You may view, download, and use projects for personal and educational use only. Redistribution or commercial use without permission is prohibited.
+            </p>
+
+            <h3>4. User Responsibilities</h3>
+            <ul>
+               <li>Do not submit these projects as-is for academic evaluations unless allowed by your institution.</li>
+               <li>You are responsible for how you use the resources on this website.</li>
+            </ul>
+
+            <h3>5. No Academic Misconduct</h3>
+            <p>
+               Project Bank does not support academic dishonesty. Users are expected to use the projects as guides or references, not to directly submit them as their own work.
+            </p>
+
+            <h3>6. Limitation of Liability</h3>
+            <p>
+               Project Bank is not responsible for any academic, legal, or institutional consequences resulting from misuse of the content. All use is at your own risk.
+            </p>
+
+            <h3>7. User Conduct</h3>
+            <p>
+               You agree not to misuse the service or help anyone else do so. Unethical behavior or violation of guidelines may lead to account restriction.
+            </p>
+
+            <h3>8. Changes to the Terms</h3>
+            <p>
+               We reserve the right to update these Terms and Conditions at any time. Changes will be reflected on this page.
+            </p>
+
+            <p><strong>Last updated:</strong> July 6, 2025</p>
+            <div class="close-btn">
+               <button onclick="closeTermsPopup()">Close</button>
+            </div>
+         </div>
+      </div>
+
+      <!-- PRIVACY POPUP -->
+      <div id="privacyPopup" class="popup-overlay">
+         <div class="popup-box">
+            <h2>Privacy Policy</h2>
+            <div class="underline"></div>
+            <p>At <strong>V4Tech</strong>, we value your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your data when you interact with our platform.</p>
+
+            <h3>1. Information We Collect</h3>
+            <ul>
+               <li><strong>Personal Details:</strong> such as your name, email address, and academic details (like college name, USN, year), when you register or request a project.</li>
+               <li><strong>Project Requests:</strong> project domain, technology preferences, or custom project inputs you submit.</li>
+               <li><strong>Login Data:</strong> your session activity, IP address, device type, and browser for security and user experience.</li>
+            </ul>
+
+            <h3>2. How We Use Your Information</h3>
+            <ul>
+               <li>To deliver requested project resources and respond to inquiries.</li>
+               <li>To maintain user accounts, allow login sessions, and personalize user experience.</li>
+               <li>To improve and enhance our website's features and offerings.</li>
+               <li>To communicate updates, new project listings, or offers (only if you’ve opted in).</li>
+            </ul>
+
+            <h3>3. Data Security</h3>
+            <p>
+               We implement standard encryption and access controls to protect your data. While no method is 100% secure, we strive to use best practices to keep your information safe.
+            </p>
+
+            <h3>4. Use of Cookies</h3>
+            <p>
+               We use cookies to enhance your browsing experience, remember your login sessions, and track anonymous usage for analytics.
+            </p>
+
+            <h3>5. Third-Party Services</h3>
+            <p>
+               We may use services like Google Analytics to understand usage trends. We do not sell, rent, or share your personal data with third-party marketers.
+            </p>
+
+            <h3>6. Your Rights</h3>
+            <p>
+               You have the right to request access to your personal data, request corrections, or deletion of your account at any time by contacting us at <a href="mailto:prathamssalian@gmail.com">prathamssalian@gmail.com</a>.</p>
+
+            <h3>7. Changes to This Policy</h3>
+            <p>
+               We may update this Privacy Policy to reflect changes in our practices. Updates will be posted here, and we encourage you to review this page periodically.
+            </p>
+
+            <p><strong>Last updated:</strong> July 6, 2025</p>
+            <div class="close-btn">
+               <button onclick="closePrivacyPopup()">Close</button>
+            </div>
+         </div>
+      </div>
+
+      <a href="#" class="back-to-top" title="Back to Top">
+         <i class="fas fa-arrow-up"></i>
+      </a>
+
+      <!-- Help Button -->
+      <button class="help-btn" id="helpBtn" title="How to use this site?">
+         <i class="fas fa-question"></i>
+      </button>
+
+      <!-- Help Modal -->
+      <div id="helpModal" class="help-modal">
+         <div class="help-modal-content">
+            <span class="close">&times;</span>
+            <h2>How to Use This Website</h2>
+            <ul>
+               <li>🔍 Browse available project domains on the homepage.</li>
+               <li>📝 Click “View Details” to learn about each project.</li>
+               <li>💬 Use the Contact section to request custom projects.</li>
+               <li>📦 Click “Buy Now” to get complete project files.</li>
+               <li>📧 For questions, use the Contact Us form.</li>
+            </ul>
+         </div>
+      </div>
+
+      <div id="bombContainer">
+         <div id="bomb">💣</div>
+         <div id="blast">
+            <span class="blast-text">💥 50% OFF for Students!</span>
+            <span class="blast-sub">Unlock your next project at half the price 💡</span>
+         </div>
+      </div>
+
+      <!-- Page Loader -->
+      <div id="loader-wrapper">
+         <div class="loader-content">
+            <div class="logo-spinner">
+               <div class="spinner"></div>
+               <img src="/static/images/logo.png" alt="Logo" class="loader-logo">
+            </div>
+            <p class="loading-text">Getting Ready...</p>
+         </div>
+      </div>
+
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+      <!--Script-->
+      <script>
+
+         function filterDomains() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.domain-card');
+
+            cards.forEach(card => {
+               const title = card.querySelector('.domain-title').textContent.toLowerCase();
+               if (title.includes(input)) {
+                  card.style.display = 'flex';
+               } else {
+                  card.style.display = 'none';
+               }
+            });
+         }
+         
+         {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+               window.onload = function() {
+                  var toast = document.getElementById("toast");
+                  toast.innerText = "{{ messages[0][1] }}";
+                  toast.className = "toast show";
+                  setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
+               };
+            {% endif %}
+         {% endwith %}
+
+         function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.className = "toast show";
+            setTimeout(() => {
+               toast.className = toast.className.replace("show", "");
+            }, 3000);
+         }
+
+         const items = document.querySelectorAll(".accordion-item");
+         items.forEach(item => {
+            const btn = item.querySelector(".accordion-button");
+            const icon = item.querySelector("i");
+            btn.addEventListener("click", () => {
+               const isActive = item.classList.contains("active");
+               items.forEach(i => {
+                  i.classList.remove("active");
+                  i.querySelector("i").classList.replace("fa-minus", "fa-plus");
+               });
+               if (!isActive) {
+                  item.classList.add("active");
+                  icon.classList.replace("fa-plus", "fa-minus");
+               }
+            });
+         });
+
+         function clearSearch() {
+            const input = document.getElementById("searchInput");
+            input.value = "";
+            filterDomains();
+            input.focus();
+         }
+
+         const backToTop = document.querySelector('.back-to-top');
+
+         window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+               backToTop.style.display = 'block';
+            } else {
+               backToTop.style.display = 'none';
+            }
+         });
+
+         const helpBtn = document.getElementById("helpBtn");
+         const helpModal = document.getElementById("helpModal");
+         const closeBtn = helpModal.querySelector(".close");
+
+         helpBtn.onclick = () => {
+            helpModal.style.display = "block";
+         };
+
+         closeBtn.onclick = () => {
+            helpModal.style.display = "none";
+         };
+
+         window.onclick = (event) => {
+            if (event.target == helpModal) {
+               helpModal.style.display = "none";
+            }
+         };
+
+         function triggerBombDrop() {
+            const bomb = document.getElementById("bomb");
+            const blast = document.getElementById("blast");
+
+            bomb.style.animation = 'none';
+            bomb.offsetHeight;
+            bomb.style.opacity = '1';
+            bomb.style.animation = 'dropBomb 2s ease-in-out';
+
+            setTimeout(() => {
+               blast.style.display = "block";
+               blast.style.animation = 'explode 0.4s ease-in-out';
+            }, 2000);
+
+            setTimeout(() => {
+               bomb.style.opacity = '0';
+               blast.style.display = "none";
+            }, 5000);
+         }
+
+         setInterval(triggerBombDrop, 25000);
+
+         function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+         }
+
+         function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+         }
+
+         window.addEventListener("scroll", function () {
+            const mobileNav = document.querySelector(".mobile-nav");
+            const brand = document.querySelector(".navbar-brand");
+            if (window.scrollY > 10) {
+               mobileNav.classList.add("shrink");
+            } 
+            else {
+               mobileNav.classList.remove("shrink");
+            }
+         });
+
+         window.addEventListener("scroll", function () {
+            const desktopNav = document.querySelector(".desktop-nav");
+            if (window.scrollY > 10) {
+               desktopNav.classList.add("shrink");
+            } 
+            else {
+               desktopNav.classList.remove("shrink");
+            }
+         });
+
+         window.addEventListener("load", () => {
+            const loader = document.getElementById("loader-wrapper");
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+            loader.style.transition = "all 0.5s ease";
+         });
+
+         // Open Popups
+         function openTermsPopup() {
+            document.getElementById('termsPopup').style.display = 'flex';
+         }
+
+         function openPrivacyPopup() {
+            document.getElementById('privacyPopup').style.display = 'flex';
+         }
+
+         // Close Popups
+         function closeTermsPopup() {
+            document.getElementById('termsPopup').style.display = 'none';
+         }
+
+         function closePrivacyPopup() {
+            document.getElementById('privacyPopup').style.display = 'none';
+         }
+
+         window.addEventListener('click', function (e) {
+            if (e.target === document.getElementById('termsPopup')) closeTermsPopup();
+            if (e.target === document.getElementById('privacyPopup')) closePrivacyPopup();
+         });
+
+      </script>
+   </body>
+</html>

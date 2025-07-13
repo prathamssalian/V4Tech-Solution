@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Admin Login</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         body { 
+            background: #1b1b2f; 
+            color: #fff; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+         }
+         h2 {
+            font-size: 3em; 
+            font-family: Georgia, 'Times New Roman', Times, serif;
+         }
+         form { 
+            background: #112240; 
+            padding: 20px; 
+            display: inline-block; 
+            border-radius: 8px; 
+            font-size: 2em;
+         }
+         input { 
+            padding: 13px; 
+            margin: 18px; 
+            width: 220px; 
+            border-radius: 10px;
+         }
+         button:hover {
+            background: #33cca8;
+         }
+         button { 
+            padding: 15px 30px 15px 30px; 
+            background: #64ffda; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 20px; 
+            font-family:Georgia, 'Times New Roman', Times, serif; 
+            font-weight: 700; 
+            font-size: 16px;
+         }
+      </style>
+   </head>
+   <body>
+      
+      <h2>Admin Login</h2>
+      <form method="POST">
+         <input type="text" name="username" placeholder="Username" required><br>
+         <input type="password" name="password" placeholder="Password" required><br>
+         <button type="submit">Login</button>
+         {% if error %}<p style="color: red;">{{ error }}</p>{% endif %}
+      </form>
+
+   </body>
+</html>

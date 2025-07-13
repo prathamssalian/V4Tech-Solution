@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{ domain }} Projects</title>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+      
+      <style> 
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+         }
+         body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(135deg, #86a5fa, #e6f7ff);
+            overflow-x: hidden;
+            padding: 20px;
+         }
+         .content {
+            z-index: 2;
+            padding: 40px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(135deg, #f0f4ff, #e6f7ff);
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 85%;
+         }
+         h1 {
+            color: #2575fc;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s ease-in-out;
+            font-size: 30px;
+         }
+         h3 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+         }
+         .project-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+         }
+         .project-card {
+            background: #ffffffee;  /* Subtle white with slight transparency */
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(36, 107, 253, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 320px;
+         }
+         .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(36, 107, 253, 0.15);
+         }
+         .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #2575fc;
+         }
+         .project-summary {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #555;
+         }
+         .project-tech {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #555;
+         }
+         .card-buttons {
+            margin-top: 15px;
+         }
+         .btn {
+            background-color: #f0f4ff;
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 5px;
+         }
+         .btn:hover {
+            background-color: #1e5fe0;
+            box-shadow: 0 10px 25px rgba(37, 117, 252, 0.5);
+            transform: scale(1.05);
+            color: white;
+         }
+         .btn-contact {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            margin: 5px;
+            background-color: #2575fc;
+            color: white;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px);
+         }
+         .btn1 {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            background-color: #2575fc;
+            color: white;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px);
+         }
+         a button:hover {
+            background-color: #1e5fe0;
+            box-shadow: 0 10px 25px rgba(37, 117, 252, 0.5);
+            transform: scale(1.05);
+         }
+         .btn-contact:hover {
+            background-color: #1e5fe0;
+            box-shadow: 0 10px 25px rgba(37, 117, 252, 0.5);
+            transform: scale(1.05);
+         }
+         .back {
+            margin-top: 40px;
+         }
+         .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+         }
+         .popup-box {
+            background: linear-gradient(to right, #eef2f3, #ffffff);
+            padding: 30px 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            transition: 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+         }
+         .popup-box h3 {
+            color: #246bfd;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+         }
+         .popup-box input, .popup-box select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0 18px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            outline: none;
+            background: #f9f9f9;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: 0.2s ease;
+         }
+         .popup-box input:focus, .popup-box select:focus {
+            border-color: #246bfd;
+            box-shadow: 0 0 5px rgba(36, 107, 253, 0.4);
+         }
+         .popup-box button {
+            background: #246bfd;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-size: 1rem;
+         }
+         .popup-box button:hover {
+            background: #1747c5;
+         }
+         .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #2dd82a;
+            color: #050404;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+         }
+         .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+         }
+
+         @keyframes fadein {
+            from { 
+               top: 0; 
+               opacity: 0;
+            }
+            to { 
+               top: 30px; 
+               opacity: 1; 
+            }
+         }
+
+         @keyframes fadeout {
+            from { 
+               top: 30px; 
+               opacity: 1; 
+            }
+            to { 
+               top: 0; 
+               opacity: 0; 
+            }
+         }
+
+         @keyframes fadeIn {
+            from {
+               opacity: 0;
+               transform: translateY(-30px);
+            }
+            to {
+               opacity: 1;
+               transform: translateY(0);
+            }
+         }
+         /* Loader Overlay */
+         #loader-wrapper {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: #eaf4ff;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         z-index: 99999;
+         }
+         .loader-content {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         }
+         .logo-spinner {
+         position: relative;
+         width: 100px;
+         height: 100px;
+         }
+         .spinner {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100px;
+         height: 100px;
+         border: 6px solid transparent;
+         border-top: 6px solid #00c6ff;
+         border-radius: 50%;
+         animation: spin 1s linear infinite;
+         box-shadow: 0 0 12px #00c6ff, 0 0 24px #00c6ff;
+         z-index: 1;
+         }
+         .loader-logo {
+         width: 90px;
+         height: 90px;
+         object-fit: contain;
+         border-radius: 50%;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         z-index: 2;
+         }
+         .loading-text {
+         margin-top: 20px;
+         font-size: 1.2rem;
+         font-weight: 600;
+         color: #104b75;
+         }
+         @keyframes spin {
+         0%   { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+         }
+      </style>
+   </head>
+
+   <body>
+      <div class="content">
+         <h1>{{ domain }}</h1>
+         <h3>Projects in {{ domain }} domain</h3>
+
+         <div class="project-list">
+            {% for project in projects %}
+            <div class="project-card">
+               <div class="project-title"><strong>{{ project.title }}</strong></div>
+               <div class="project-summary">{{ project.description[:100] }}...</div>
+               <div class="project-tech"><strong>Tech Stack :</strong> {{ project.tech_stack }}</div>
+               <div class="card-buttons">
+                  <button class="btn" onclick="openDetailsPopup('{{ project.title }}', '{{ project.tech_stack }}', `{{ project.description }}`)">View Details →</button>
+                  <button class="btn-contact" onclick="openPopup('{{ project.title }}')">Contact</button>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+
+         <!-- Details Popup -->
+         <div class="popup-overlay" id="detailsPopup">
+            <div class="popup-box">
+               <h3 id="detailsTitle"></h3>
+               <p><strong>Tech Stack:</strong> <span id="detailsTech"></span></p>
+               <p><strong>Description:</strong></p>
+               <p id="detailsDescription"></p>
+               <button class="btn" onclick="closeDetailsPopup()">Close</button>
+            </div>
+         </div>
+
+         <div class="back">
+            <a href="{{ url_for('index') }}">
+               <button class="btn1">← Back to Domains</button>
+            </a>
+         </div>
+
+         <!-- Updated Contact Popup -->
+         <div class="popup-overlay" id="popup">
+            <div class="popup-box">
+               <h3>Contact for: <span id="selectedProject"></span></h3>
+               <input type="text" id="name" placeholder="Your Name" required>
+               <input type="text" id="mobile" placeholder="Mobile" required>
+               <select id="request_type">
+               <option value="only_project">Only Project</option>
+               <option value="only_report">Only Report</option>
+               <option value="complete_project">Complete Project</option>
+               </select>
+               <button class="btn" onclick="saveRequest()">Buy Now</button>
+            </div>
+         </div>
+
+         <!-- Toast -->
+         <div id="toast" class="toast">We will reach out to you soon!</div>
+      </div>
+
+      <!-- Page Loader -->
+      <div id="loader-wrapper">
+         <div class="loader-content">
+            <div class="logo-spinner">
+               <div class="spinner"></div>
+               <img src="/static/images/logo.png" alt="Logo" class="loader-logo">
+            </div>
+            <p class="loading-text">Fetching Projects...</p>
+         </div>
+      </div>
+
+      <!--Script-->
+      <script>
+
+         let selectedProjectTitle = "";
+
+         function openPopup(title) {
+            selectedProjectTitle = title;
+            document.getElementById('selectedProject').textContent = title;
+            document.getElementById('popup').style.display = 'flex';
+         }
+
+         function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+         }
+
+         function saveRequest() {
+            const name = document.getElementById('name').value;
+            const mobile = document.getElementById('mobile').value;
+            const type = document.getElementById('request_type').value;
+
+            if (!name || !mobile) {
+               alert("Please fill all fields");
+               return;
+            }
+
+            fetch('/contact_request', {
+               method: 'POST',
+               headers: {'Content-Type': 'application/json'},
+               body: JSON.stringify({ name, mobile, type, project: selectedProjectTitle })
+            })
+            .then(res => res.json())
+            .then(data => {
+               closePopup();
+               showToast(data.message);
+            });
+         }
+
+         function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.className = "toast show";
+            setTimeout(() => {
+               toast.className = toast.className.replace("show", "");
+            }, 3000);
+         }
+
+         // Close popup on outside click
+         window.onclick = function(event) {
+            if (event.target.id === 'popup') {
+               closePopup();
+            }
+         }
+
+         function openDetailsPopup(title, tech, description) {
+            document.getElementById('detailsTitle').textContent = title;
+            document.getElementById('detailsTech').textContent = tech;
+            document.getElementById('detailsDescription').textContent = description;
+            document.getElementById('detailsPopup').style.display = 'flex';
+         }
+
+         function closeDetailsPopup() {
+            document.getElementById('detailsPopup').style.display = 'none';
+         }
+         
+         window.addEventListener("load", () => {
+            const loader = document.getElementById("loader-wrapper");
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+            loader.style.transition = "all 0.5s ease";
+         });
+      </script>
+   </body>
+</html>
