@@ -1,32 +1,31 @@
 {
-  "Web Development": [
+  "Web Development": [],
+  "Introduction to Data Science": [],
+  "Database Management System": [],
+  "Internship ": [
     {
-      "id": "403",
-      "title": "1",
-      "description": "he",
-      "tech_stack": "1"
-    }
-  ],
-  "Introduction to Data Science": [
-    {
-      "id": "201",
-      "title": "Bank Fraud Detection",
-      "description": "1",
-      "tech_stack": "Python, Pandas, Scikit-learn"
-    }
-  ],
-  "Database Management System": [
-    {
-      "id": "301",
-      "title": "1",
-      "description": "1",
-      "tech_stack": "1"
+      "id": "101",
+      "title": "Student Mental Health and Academic Stress Analysis Survey",
+      "description": "This project surveys college students to understand the impact of academic stress on mental health, including exam pressure, sleep habits, and access to support systems. The results will help develop wellness strategies and promote awareness.",
+      "tech_stack": "Google Forms, Python (Pandas, Matplotlib), Flask (for web app, optional)"
     },
     {
-      "id": "1045",
-      "title": "45",
-      "description": "hw",
-      "tech_stack": "34"
+      "id": "102",
+      "title": "Online Learning and Distance Learning Satisfaction Survey",
+      "description": "The project evaluates student satisfaction with online and hybrid learning environments post-COVID. It gathers feedback on platform usability, learning effectiveness, and digital challenges faced.",
+      "tech_stack": "Google Forms, MS Excel or Google Spreadsheet"
+    },
+    {
+      "id": "103",
+      "title": "Smart Feedback Analyzer for Online Learning Platforms",
+      "description": "Use survey responses to rate and recommend e-learning platforms (Coursera, NPTEL, Udemy) based on student performance improvement and satisfaction.",
+      "tech_stack": "Python (scikit-learn), Google Forms "
+    },
+    {
+      "id": "104",
+      "title": "Impact of Mobile Addiction on Academic and Social Life",
+      "description": "Survey usage hours, preferred platforms, and effects on focus, health, and social interaction. Recommend digital detox plans.",
+      "tech_stack": "Google Forms, Python (correlation analysis), Chart.js in Flask/React"
     }
   ]
 }

@@ -9,14 +9,6 @@ app.secret_key = 'prathamssalian146'  # replace with strong key
 
 PROJECT_FILE = 'data/projects.json'
 
-conn = mysql.connector.connect(
-    host=os.getenv("DB_HOST"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    database=os.getenv("DB_NAME"),
-    port=int(os.getenv("DB_PORT", 3306))
-)
-
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -223,4 +215,4 @@ def contact_request():
     return jsonify({'message': 'We will reach out to you soon!'})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=10000)
+    app.run(debug=True)

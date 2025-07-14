@@ -48,7 +48,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
          }
          .project-card {
             background: #ffffffee;  /* Subtle white with slight transparency */
@@ -56,7 +56,7 @@
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(36, 107, 253, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 320px;
+            width: 350px;
          }
          .project-card:hover {
             transform: translateY(-6px);
@@ -75,7 +75,9 @@
          .project-tech {
             font-size: 1rem;
             margin-bottom: 30px;
+            margin-left: 15px;
             color: #555;
+            text-align: left;
          }
          .card-buttons {
             margin-top: 15px;
@@ -314,8 +316,8 @@
             {% for project in projects %}
             <div class="project-card">
                <div class="project-title"><strong>{{ project.title }}</strong></div>
-               <div class="project-summary">{{ project.description[:100] }}...</div>
-               <div class="project-tech"><strong>Tech Stack :</strong> {{ project.tech_stack }}</div>
+               <div class="project-summary"><strong>Summary :</strong> {{ project.description[:50] }}...</div>
+               <div class="project-tech"><strong>Tech Stack :</strong> {{ project.tech_stack[:40] }}...</div>
                <div class="card-buttons">
                   <button class="btn" onclick="openDetailsPopup('{{ project.title }}', '{{ project.tech_stack }}', `{{ project.description }}`)">View Details →</button>
                   <button class="btn-contact" onclick="openPopup('{{ project.title }}')">Contact</button>
@@ -328,9 +330,9 @@
          <div class="popup-overlay" id="detailsPopup">
             <div class="popup-box">
                <h3 id="detailsTitle"></h3>
-               <p><strong>Tech Stack:</strong> <span id="detailsTech"></span></p>
+               <p><strong>Tech Stack:</strong> <span id="detailsTech"></span></p><br>
                <p><strong>Description:</strong></p>
-               <p id="detailsDescription"></p>
+               <p id="detailsDescription"></p><br>
                <button class="btn" onclick="closeDetailsPopup()">Close</button>
             </div>
          </div>
