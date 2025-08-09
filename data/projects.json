@@ -27,5 +27,43 @@
       "description": "Survey usage hours, preferred platforms, and effects on focus, health, and social interaction. Recommend digital detox plans.",
       "tech_stack": "Google Forms, Python (correlation analysis), Chart.js in Flask/React"
     }
+  ],
+  "MERN Stack": [
+    {
+      "id": "101",
+      "title": "To-Do List App",
+      "description": "A basic CRUD app where users can add, edit, mark as complete, and delete tasks. The backend exposes REST APIs for task management, and the frontend uses React to display and interact with the tasks in real time.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js, Axios"
+    },
+    {
+      "id": "102",
+      "title": "Notes Keeper",
+      "description": "Users can create, search, and delete notes. Notes are stored in MongoDB and retrieved via an Express API. Great for learning state management and search filtering in React.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js"
+    },
+    {
+      "id": "103",
+      "title": "Expense Tracker",
+      "description": "Users can add income and expense entries, filter by category/date, and see graphs of their spending habits. Focuses on MongoDB aggregations and chart rendering in React.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js"
+    },
+    {
+      "id": "104",
+      "title": "Book-Store",
+      "description": "A digital library where users can browse, search, and save books. Optional admin panel for adding/removing books. Good for CRUD with search filtering.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js, Bootstrap"
+    },
+    {
+      "id": "105",
+      "title": "Event Booking System",
+      "description": "Users can view upcoming events, book tickets, and see booking history. Admin can create and manage events.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js, Bootstrap"
+    },
+    {
+      "id": "106",
+      "title": "Restaurant Menu App",
+      "description": "Display a restaurant menu, allow table booking or online ordering. Admin panel for updating menu items.",
+      "tech_stack": "React, MongoDB, Node.js, Express.js, Tailwind CSS"
+    }
   ]
 }
