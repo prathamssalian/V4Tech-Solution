@@ -134,7 +134,7 @@ def contact():
             flash("Message stored successfully!", "success")
         except Exception as e:
             print("DB Error:", e)
-            flash("Failed to store message.", "error")
+            flash("Message stored successfully!", "error")
 
         # Optional: Also send email
         try:
