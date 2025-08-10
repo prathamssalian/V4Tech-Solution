@@ -1,7 +1,57 @@
 {
-  "Web Development": [],
+  "Web Development": [
+    {
+      "id": "101",
+      "title": "Personal Portfolio Website",
+      "description": "A responsive personal website that highlights skills, projects, achievements, and contact information.\r\nIt includes an about section, portfolio showcase, and contact form.\r\nDesigned to create a strong first impression for recruiters or scholarship panels.",
+      "tech_stack": "HTML, CSS, JavaScript, Python (FLASK)"
+    },
+    {
+      "id": "102",
+      "title": "Weather App",
+      "description": "A web app that shows live weather data for any location using the OpenWeather API.\r\nDisplays temperature, conditions, and forecasts in real-time.\r\nHelps users plan their day based on weather updates.",
+      "tech_stack": "HTML, CSS, JavaScript, OpenWeather API"
+    },
+    {
+      "id": "103",
+      "title": "Online Notes App",
+      "description": "A digital notebook where users can write, save, and edit notes.\r\nIncludes search and category features for organization.\r\nEnsures accessibility from any device with cloud storage.",
+      "tech_stack": "HTML, CSS, JavaScript, Python (FLASK)"
+    },
+    {
+      "id": "104",
+      "title": "Online Polling System",
+      "description": "A web app where users can create polls and vote in real-time.\r\nDisplays instant results with charts.\r\nUseful for surveys, feedback collection, and decision-making.",
+      "tech_stack": "HTML, CSS, JavaScript, Python (FLASK), MySQL"
+    }
+  ],
   "Introduction to Data Science": [],
-  "Database Management System": [],
+  "Database Management System": [
+    {
+      "id": "101",
+      "title": "Library Management System",
+      "description": "Manages books, members, and lending records with search, borrow, and return features, reducing manual paperwork.",
+      "tech_stack": "MySQL, FLASK, HTML, CSS, JavaScript"
+    },
+    {
+      "id": "102",
+      "title": "Inventory Management System",
+      "description": "Maintains stock records, supplier details, and purchase history to track product availability.",
+      "tech_stack": "MySQL, PHP/Java, HTML, CSS"
+    },
+    {
+      "id": "103",
+      "title": "Hospital Management System",
+      "description": "Tracks patient details, doctor schedules, and appointments while maintaining medical records securely.",
+      "tech_stack": "MySQL, Python/Java, HTML, CSS, JavaScript"
+    },
+    {
+      "id": "104",
+      "title": "Visitor Management System",
+      "description": "A web-based system for recording and managing visitor information in offices, schools, or organizations. It captures visitor details like name, contact, purpose of visit, in-time, and out-time, storing them securely in a database.",
+      "tech_stack": "MySQL, Python/Java, HTML, CSS, JavaScript"
+    }
+  ],
   "Internship ": [
     {
       "id": "101",
