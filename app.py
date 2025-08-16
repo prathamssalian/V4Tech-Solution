@@ -131,10 +131,10 @@ def contact():
             conn.commit()
             cursor.close()
             conn.close()
-            flash("Message stored successfully!", "success")
+            flash("Message sent successfully!", "success")
         except Exception as e:
             print("DB Error:", e)
-            flash("Message stored successfully!", "error")
+            flash("Message sent successfully!", "error")
 
         # Optional: Also send email
         try:
