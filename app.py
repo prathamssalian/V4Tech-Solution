@@ -12,10 +12,10 @@ PROJECT_FILE = 'data/projects.json'
 # PostgreSQL connection
 def get_db_connection():
     return psycopg2.connect(
-        host=os.getenv("DB_HOST"),
-        database=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD")
+        host=os.getenv("dpg-d2q6mlfdiees73clikgg-a"),
+        database=os.getenv("projectbank_db"),
+        user=os.getenv("projectbank_db_user"),
+        password=os.getenv("ktyUJdPtdgmSsxsm9xhptHu3A2V4070V")
     )
 
 # Load projects
