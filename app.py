@@ -2,19 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from email.message import EmailMessage
 import json, os
 import smtplib
-import mysql.connector
+import psycopg2
 
 app = Flask(__name__)
-app.secret_key = 'prathamssalian146'  # replace with strong key
+app.secret_key = 'prathamssalian146'  # replace with a strong key
 
 PROJECT_FILE = 'data/projects.json'
 
+# PostgreSQL connection
 def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",              # use your MySQL username
-        password="pssalian", # use your MySQL password
-        database="projectbank"
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST"),
+        database=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD")
     )
 
 # Load projects
@@ -47,7 +48,7 @@ def project(domain_name, project_id):
     project = next((p for p in data.get(domain_name, []) if p['id'] == project_id), None)
     return render_template('domain.html', domain=domain_name, project=project)
 
-# Admin Login & Dashboard
+# ----------------- Admin -----------------
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -65,7 +66,7 @@ def admin_dashboard():
 
     data = load_projects()
 
-    # Load contact submissions
+    # Load contact submissions from JSON (backup storage)
     submissions = []
     contact_file = 'contact_requests.json'
     if os.path.exists(contact_file):
@@ -110,6 +111,7 @@ def admin_logout():
     session.pop('admin', None)
     return redirect(url_for('welcome'))
 
+# ----------------- Contact -----------------
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -120,7 +122,7 @@ def contact():
 
         full_message = f"Name: {name}\nPhone: {phone}\nEmail: {email}\n\nMessage:\n{message}"
 
-        # Save to MySQL
+        # Save to PostgreSQL
         try:
             conn = get_db_connection()
             cursor = conn.cursor()
@@ -134,7 +136,7 @@ def contact():
             flash("Message sent successfully!", "success")
         except Exception as e:
             print("DB Error:", e)
-            flash("Message sent successfully!", "error")
+            flash("Something went wrong saving to DB!", "error")
 
         # Optional: Also send email
         try:
@@ -162,9 +164,10 @@ def send_email(subject, body, reply_to):
         smtp.login(sender, password)
         smtp.send_message(msg)
 
+# ----------------- Other Pages -----------------
 @app.route('/team')
 def team():
-    return render_template('team')
+    return render_template('team.html')
 
 @app.route('/terms')
 def terms():
@@ -174,6 +177,7 @@ def terms():
 def privacy():
     return render_template('privacy.html')
 
+# ----------------- Contact Requests (JSON + DB) -----------------
 @app.route('/contact_request', methods=['POST'])
 def contact_request():
     data = request.get_json()
@@ -182,7 +186,7 @@ def contact_request():
     if not all(field in data and data[field] for field in required_fields):
         return jsonify({'message': 'Missing required fields'}), 400
 
-    # Save to JSON
+    # Save to JSON (backup)
     json_path = 'contact_requests.json'
     if os.path.exists(json_path):
         with open(json_path, 'r') as file:
@@ -197,7 +201,7 @@ def contact_request():
     with open(json_path, 'w') as file:
         json.dump(existing_data, file, indent=2)
 
-    # Save to MySQL
+    # Save to PostgreSQL
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -210,9 +214,10 @@ def contact_request():
         cursor.close()
         conn.close()
     except Exception as e:
-        print("Error saving to MySQL:", e)
+        print("Error saving to PostgreSQL:", e)
 
     return jsonify({'message': 'We will reach out to you soon!'})
 
+# ----------------- Run App -----------------
 if __name__ == '__main__':
     app.run(debug=True)
